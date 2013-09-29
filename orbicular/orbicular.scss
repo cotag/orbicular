@@ -1,0 +1,94 @@
+@import "compass";
+@import "orbicular_config";
+
+// That calculation I mentioned in progress_config
+$progressBarAcutalWidth: $progressBarWidth / 100;
+$progressBarCalculatedWidth: $progressBarAcutalWidth + em;
+// Circle width is: 1 - (2 * border width)
+$progressCircleWidth: (1 - (2 * $progressBarAcutalWidth)) + em;
+
+
+// this is the core progress class
+div.co-circle-progress {
+	position: relative;
+	width: 100%;
+	height: 1em;
+
+    // Common traits of all the circles
+    div.co-circle {
+        position:absolute;
+        top: 0;
+        left: 0;
+
+        @include border-radius(0.5em);
+        background: transparent;
+
+        border: $progressBarCalculatedWidth solid;
+        width:  $progressCircleWidth; /* 1 - (2 * border width) */
+        height: $progressCircleWidth; /* 1 - (2 * border width) */
+    }
+
+	&> div.co-progress {
+        position:absolute;
+		width: 1em;
+		height: 1em;
+        background: transparent;
+
+        // Hides half of the circle
+        clip: rect(0px,1em,1em,0.5em);
+
+        // The two half circles that make up the progress
+        &> div {
+            border-color: $progressBarColor;
+            clip:rect(0em,0.5em,1em,0em);
+
+            -webkit-transition: -webkit-transform 0.3s linear;
+            -moz-transition: -moz-transform 0.3s linear;
+            -ms-transition: -ms-transform 0.3s linear;
+            -o-transition: -o-transform 0.3s linear;
+            transition: transform 0.3s linear;
+
+            // This one does not rotate
+            &.filled {
+                display: none;
+                @include transform(rotate(180deg));
+            }
+        }
+
+        // Once the progress reaches 50% we remove the clip
+		&.gt50 {
+			clip: rect(auto, auto, auto, auto);
+
+            // and display the solid half circle in full
+            &> div.filled {
+                display: block;
+            }
+		}
+	}
+
+    // Circle background and empty progress color
+    &> div.bg {
+        background-color: $progressFillColor;
+        border-color: $progressBarBg;
+    }
+
+    // Centering of the transcluded content by default
+    &> div.circle-content {
+        position:absolute;
+        height: 1em;
+        width: 1em;
+
+        &> div {
+            display: table-row;
+            width: 1em;
+            height: 1em;
+
+            &> div {
+                display: table-cell;
+                vertical-align: middle;
+                text-align: center;
+                width: 1em;
+            }
+        }
+    }
+}

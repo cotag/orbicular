@@ -37,10 +37,6 @@ module.exports = function (grunt) {
         files: ['test/spec/{,*/}*.coffee'],
         tasks: ['coffee:test']
       },
-      compass: {
-        files: ['<%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
-        tasks: ['compass']
-      },
       styles: {
         files: ['<%= yeoman.app %>/styles/{,*/}*.css'],
         tasks: ['copy:styles', 'autoprefixer']
@@ -157,23 +153,6 @@ module.exports = function (grunt) {
         }]
       }
     },
-    compass: {
-      options: {
-        sassDir: '<%= yeoman.app %>/',
-        cssDir: '.tmp/styles',
-        imagesDir: '<%= yeoman.app %>/images',
-        javascriptsDir: '<%= yeoman.app %>/',
-        fontsDir: '<%= yeoman.app %>/fonts',
-        importPath: '<%= yeoman.app %>/bower_components',
-        relativeAssets: true
-      },
-      dist: {},
-      server: {
-        options: {
-          debugInfo: true
-        }
-      }
-    },
     // We dynamically load one of two files depending on available features
     // So we need to use concat to allow for this.
     concat: {
@@ -269,18 +248,15 @@ module.exports = function (grunt) {
     },
     concurrent: {
       server: [
-        'compass:server',
         'coffee:dist',
         'copy:styles'
       ],
       test: [
         'coffee',
-        'compass',
         'copy:styles'
       ],
       dist: [
         'coffee',
-        'compass:dist',
         'copy:styles',
         'imagemin',
         'svgmin',

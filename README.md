@@ -1,5 +1,6 @@
 # CSS Circular Progress Bar
 
+!https://travis-ci.org/cotag/orbicular.png!:https://travis-ci.org/cotag/orbicular
 Based on the technique used at http://fromanegg.com/post/41302147556/100-pure-css-radial-progress-bar
 
 

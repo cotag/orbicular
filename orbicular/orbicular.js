@@ -37,7 +37,7 @@
                 restrict: 'EA',
                 scope: {
                     current: '=progress',
-                    total: '=total'
+                    total: '='
                 },
                 link: function (scope, element) {
                     var applyProgress = true,    // used to coordinate the transition animation

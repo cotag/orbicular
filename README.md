@@ -12,9 +12,10 @@ Based on the technique used at http://fromanegg.com/post/41302147556/100-pure-cs
 2. Add `"orbicular": "~1.0.0"` to your dependency list
 3. Run `bower install`
 4. In your application you can now add:
-   * `<script src="bower_components/orbicular/orbicular.js"></script>`
+   * `<script src="bower_components/orbicular/orbicular/orbicular.js"></script>`
 5. Copy the SCSS files into your project
    * Customise the styles using `_orbicular_config.scss`
+6. The circle size is based on the parent elements width.
 
 
 ## Usage

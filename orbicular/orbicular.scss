@@ -10,9 +10,9 @@ $progressCircleWidth: (1 - (2 * $progressBarAcutalWidth)) + em;
 
 // this is the core progress class
 div.co-circle-progress {
-	position: relative;
-	width: 100%;
-	height: 1em;
+    position: relative;
+    width: 100%;
+    height: 1em;
 
     // Common traits of all the circles
     div.co-circle {
@@ -28,10 +28,10 @@ div.co-circle-progress {
         height: $progressCircleWidth; /* 1 - (2 * border width) */
     }
 
-	&> div.co-progress {
+    &> div.co-progress {
         position:absolute;
-		width: 1em;
-		height: 1em;
+        width: 1em;
+        height: 1em;
         background: transparent;
 
         // Hides half of the circle
@@ -56,15 +56,15 @@ div.co-circle-progress {
         }
 
         // Once the progress reaches 50% we remove the clip
-		&.gt50 {
-			clip: rect(auto, auto, auto, auto);
+        &.gt50 {
+            clip: rect(auto, auto, auto, auto);
 
             // and display the solid half circle in full
             &> div.filled {
                 display: block;
             }
-		}
-	}
+        }
+    }
 
     // Circle background and empty progress color
     &> div.bg {

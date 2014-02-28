@@ -101,14 +101,14 @@
                     scope.$watch('current', function (newValue) {
                         newValue = newValue / scope.total * 360;
 
-                        if (newValue > 180 && !scope.nextHalf) {
+                        if (newValue >= 180 && !scope.nextHalf) {
                             progressTemp = newValue;
                             if (applyProgress) {
                                 applyProgress = false;
                                 updateProgress(180);
                                 progressEl.bind(transitionEvents, moveForward);
                             }
-                        } else if (newValue <= 180 && scope.nextHalf) {
+                        } else if (newValue < 180 && scope.nextHalf) {
                             progressTemp = newValue;
                             if (!applyProgress) {
                                 applyProgress = true;

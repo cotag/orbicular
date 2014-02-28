@@ -81,6 +81,72 @@ describe('Orbicular:orbicular (directive)', function() {
         expect(degrees).toBe(200);
     }));
 
+    it('should transition when stopping at 50% going forward', inject(function($rootScope) {
+        // move progress bar to half way
+        $rootScope.progress = 180;
+        $rootScope.$digest();
+
+        expect($rootScope.progress).toBe(180);
+        degrees = findDegrees(bar);
+        expect(degrees).toBe(180);      // stops here to transition the graphic
+
+        // the animation end event should move the progress forward
+        bar.trigger('transitionend');
+        $rootScope.$digest();
+
+        // move progress bar past half way
+        $rootScope.progress = 200;
+        $rootScope.$digest();
+
+        expect($rootScope.progress).toBe(200);
+        degrees = findDegrees(bar);
+        expect(degrees).toBe(200);      // stops here to transition the graphic
+
+        // the animation end event should move the progress forward
+        bar.trigger('transitionend');
+        $rootScope.$digest();
+
+        expect($rootScope.progress).toBe(200);
+        degrees = findDegrees(bar);
+        expect(degrees).toBe(200);
+    }));
+
+    it('should transition when stopping at 50% going backwards', inject(function($rootScope) {
+        // move progress bar past half way
+        $rootScope.progress = 200;
+        $rootScope.$digest();
+
+        bar.trigger('transitionend');
+        $rootScope.$digest();
+
+        expect($rootScope.progress).toBe(200);
+        degrees = findDegrees(bar);
+        expect(degrees).toBe(200);
+
+
+        // Move back to 50%
+        $rootScope.progress = 180;
+        $rootScope.$digest();
+
+        bar.trigger('transitionend');
+        $rootScope.$digest();
+
+        expect($rootScope.progress).toBe(180);
+        degrees = findDegrees(bar);
+        expect(degrees).toBe(180);
+
+        // Move backwards
+        $rootScope.progress = 50;
+        $rootScope.$digest();
+
+        bar.trigger('transitionend');
+        $rootScope.$digest();
+
+        expect($rootScope.progress).toBe(50);
+        degrees = findDegrees(bar);
+        expect(degrees).toBe(50);
+    }));
+
     it('should smoothly animate the transition backwards from one side to the other', inject(function($rootScope) {
         // move progress bar past half way
         $rootScope.progress = 200;

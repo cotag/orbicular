@@ -1,17 +1,19 @@
 {
   "name": "orbicular",
-  "version": "1.0.3",
-  "main": {
-    "directive": "./orbicular/orbicular.js",
-    "style":     "./orbicular/orbicular.scss",
-    "config":    "./orbicular/_orbicular_config.scss"
-  },
+  "version": "1.0.4",
+  "main": ["orbicular/orbicular.js", "orbicular/orbicular.scss"],
   "description": "A CSS based circular progress bar for AngularJS",
   "dependencies": {
     "angular": "~1.2.0"
   },
+  "keywords": [
+    "circular",
+    "progress",
+    "bar",
+    "AngularJS"
+  ],
   "devDependencies": {
-    "jquery": "~2.0.3",
+    "jquery": "~2.1.0",
     "angular-mocks": "~1.2.0",
     "angular-scenario": "~1.2.0"
   }

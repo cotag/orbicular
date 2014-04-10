@@ -36,7 +36,7 @@
                 replace: true,
                 restrict: 'EA',
                 scope: {
-                    current: '=progress',
+                    current: '=progression',
                     total: '='
                 },
                 link: function (scope, element) {

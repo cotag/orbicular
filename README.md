@@ -1,6 +1,6 @@
 # CSS Circular Progress Bar
 
-[![Build Status](https://travis-ci.org/cotag/orbicular.png?branch=master)](https://travis-ci.org/cotag/orbicular)
+[![Build Status](https://travis-ci.org/cotag/orbicular.svg?branch=master)](https://travis-ci.org/cotag/orbicular)
 
 
 Based on the technique used at http://fromanegg.com/post/41302147556/100-pure-css-radial-progress-bar

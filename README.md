@@ -12,6 +12,8 @@ For cool auto-scaling UI's that require circular progression
 
 ## Installation
 
+NOTE:: The [SCSS](http://sass-lang.com/) stylesheet uses [Compass](http://compass-style.org/install/) imports
+
 1. Open bower.json
 2. Add `"orbicular": "~2.0.0"` to your dependency list
 3. Run `bower install`
@@ -35,7 +37,7 @@ Where `$scope.downloaded` (download progress) and `$scope.size` (total size of d
 
 ## Upgrading from version 1.x.x
 
-There is a single breaking change: (resolving a conflict bootstrap UI)
+There is a single breaking change: (resolving a conflict with bootstrap UI)
 
 * `progress="downloaded"` changes to `progression="downloaded"`
 

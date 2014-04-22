@@ -14,33 +14,32 @@
 **/
 
 
-(function (windowRef, angular) {
+(function (angular) {
     'use strict';
-
-
-    // Constants here reduce memory requirements of each circle
-    var $window = angular.element(windowRef),
-
-        // Cache event strings
-        transitionEvents = 'webkitTransitionEnd mozTransitionEnd msTransitionEnd oTransitionEnd transitionend',
-        resizeEvents = 'orientationchange resize',
-
-        // Set the rotation of the square
-        updateProgress = function (progressEl, pos) {
-            progressEl.css({
-                '-webkit-transform': 'rotate(' + pos + 'deg)',
-                '-moz-transform': 'rotate(' + pos + 'deg)',
-                '-ms-transform': 'rotate(' + pos + 'deg)',
-                '-o-transform': 'rotate(' + pos + 'deg)',
-                'transform': 'rotate(' + pos + 'deg)'
-            });
-        };
-
 
     angular.module('Orbicular', []).
 
         // isolated circular progress bar
-        directive('orbicular', function () {
+        directive('orbicular', ['$window', function (windowRef) {
+
+            // Constants here reduce memory requirements of each circle
+            var $window = angular.element(windowRef),
+
+                // Cache event strings
+                transitionEvents = 'webkitTransitionEnd mozTransitionEnd msTransitionEnd oTransitionEnd transitionend',
+                resizeEvents = 'orientationchange resize',
+
+                // Set the rotation of the square
+                updateProgress = function (progressEl, pos) {
+                    progressEl.css({
+                        '-webkit-transform': 'rotate(' + pos + 'deg)',
+                        '-moz-transform': 'rotate(' + pos + 'deg)',
+                        '-ms-transform': 'rotate(' + pos + 'deg)',
+                        '-o-transform': 'rotate(' + pos + 'deg)',
+                        'transform': 'rotate(' + pos + 'deg)'
+                    });
+                };
+
             return {
                 template: '<div class="co-circle-progress">' +
                             '<div class="co-circle bg"></div>' +
@@ -129,6 +128,6 @@
                     });
                 }
             };
-        });
+        }]);
 
-}(this, this.angular));
+}(this.angular));

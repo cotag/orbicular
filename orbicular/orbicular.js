@@ -14,13 +14,33 @@
 **/
 
 
-(function (angular) {
+(function (windowRef, angular) {
     'use strict';
+
+
+    // Constants here reduce memory requirements of each circle
+    var $window = angular.element(windowRef),
+
+        // Cache event strings
+        transitionEvents = 'webkitTransitionEnd mozTransitionEnd msTransitionEnd oTransitionEnd transitionend',
+        resizeEvents = 'orientationchange resize',
+
+        // Set the rotation of the square
+        updateProgress = function (progressEl, pos) {
+            progressEl.css({
+                '-webkit-transform': 'rotate(' + pos + 'deg)',
+                '-moz-transform': 'rotate(' + pos + 'deg)',
+                '-ms-transform': 'rotate(' + pos + 'deg)',
+                '-o-transform': 'rotate(' + pos + 'deg)',
+                'transform': 'rotate(' + pos + 'deg)'
+            });
+        };
+
 
     angular.module('Orbicular', []).
 
         // isolated circular progress bar
-        directive('orbicular', ['$window', function ($window) {
+        directive('orbicular', function () {
             return {
                 template: '<div class="co-circle-progress">' +
                             '<div class="co-circle bg"></div>' +
@@ -42,6 +62,7 @@
                 link: function (scope, element) {
                     var applyProgress = true,    // used to coordinate the transition animation
                         progressTemp,            // holds the progress during the coordinated transition
+
                         //progressEl = element.find('div.co-progress > div:first-child'),
                         progressEl = angular.element(
                             angular.element(
@@ -55,47 +76,34 @@
                             element.css('font-size', width - (width % 2) + 'px');
                         },
 
-                        // Set the rotation of the square
-                        updateProgress = function (pos) {
-                            progressEl.css({
-                                '-moz-transform': 'rotate(' + pos + 'deg)',
-                                '-ms-transform': 'rotate(' + pos + 'deg)',
-                                '-webkit-transform': 'rotate(' + pos + 'deg)',
-                                '-o-transform': 'rotate(' + pos + 'deg)',
-                                'transform': 'rotate(' + pos + 'deg)'
-                            });
-                        },
-
-                        // Cache the transition events string
-                        transitionEvents = 'webkitTransitionEnd mozTransitionEnd msTransitionEnd oTransitionEnd transitionend',
-
                         // Cache the forward transition (clockwise)
                         moveForward = function () {
-                            progressEl.unbind(transitionEvents);
+                            progressEl.off(transitionEvents);
                             scope.nextHalf = true;
                             scope.$apply();
-                            updateProgress(progressTemp);
+                            updateProgress(progressEl, progressTemp);
                         },
 
                         // Cache the backwards transition (anti-clockwise)
                         moveBackwards = function () {
-                            progressEl.unbind(transitionEvents);
+                            progressEl.off(transitionEvents);
                             scope.nextHalf = false;
                             scope.$apply();
-                            updateProgress(progressTemp);
+                            updateProgress(progressEl, progressTemp);
                         };
 
-                    // Indicates which side the filled half circle should be located
-                    scope.nextHalf = false;
 
                     // we have to use em's for the clip function to work like a percentage
                     // so we have to manually perform the resize based on width
                     setWidth();
-                    angular.element($window).bind('orientationchange resize', setWidth);
+                    scope.$on('orb width', setWidth); // for programmatic resizing
                     scope.$on('$destroy', function () {
-                        angular.element($window).unbind('orientationchange', setWidth);
-                        angular.element($window).unbind('resize', setWidth);
+                        $window.off(resizeEvents, setWidth);
                     });
+                    $window.on(resizeEvents, setWidth);
+
+                    // Indicates which side the filled half circle should be located
+                    scope.nextHalf = false;
 
                     // we watch for changes to the progress indicator of the parent scope
                     scope.$watch('current', function (newValue) {
@@ -105,22 +113,22 @@
                             progressTemp = newValue;
                             if (applyProgress) {
                                 applyProgress = false;
-                                updateProgress(180);
-                                progressEl.bind(transitionEvents, moveForward);
+                                updateProgress(progressEl, 180);
+                                progressEl.on(transitionEvents, moveForward);
                             }
                         } else if (newValue < 180 && scope.nextHalf) {
                             progressTemp = newValue;
                             if (!applyProgress) {
                                 applyProgress = true;
-                                updateProgress(180.000001);
-                                progressEl.bind(transitionEvents, moveBackwards);
+                                updateProgress(progressEl, 180.000001);
+                                progressEl.on(transitionEvents, moveBackwards);
                             }
                         } else {
-                            updateProgress(newValue);
+                            updateProgress(progressEl, newValue);
                         }
                     });
                 }
             };
-        }]);
+        });
 
-}(this.angular));
+}(this, this.angular));

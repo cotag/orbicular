@@ -21,18 +21,31 @@ NOTE:: The [SCSS](http://sass-lang.com/) stylesheet uses [Compass](http://compas
    * `<script src="bower_components/orbicular/orbicular/orbicular.js"></script>`
 5. Copy / include the SCSS files into your project
    * Customise the styles using `_orbicular_config.scss`
-6. The circle size is based on the parent elements width.
 
 
 ## Usage
 
-Create your progress element: 
+### Create your progress element
 
 ```html
 <orbicular progression="downloaded" total="size">Text / HTML in the circle</orbicular>
 ```
 
 Where `$scope.downloaded` (download progress) and `$scope.size` (total size of download) are the variables used in the example to track the progress of a download.
+
+
+### Element size
+
+The circles size is based on the width of the parent element.
+
+This size is static and is set at the following times:
+
+1. when the directive is linked
+2. on mobile device rotation
+3. when the browser window is resized
+4. on the $broadcast of `'orb width'` to the elements scope
+
+Broadcasting or emitting should be used to programmatically resize circles
 
 
 ## Upgrading from version 1.x.x

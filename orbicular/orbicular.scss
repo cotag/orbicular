@@ -46,6 +46,7 @@ div.co-circle-progress {
             -moz-transition: -moz-transform 0.3s linear;
             -ms-transition: -ms-transform 0.3s linear;
             -o-transition: -o-transform 0.3s linear;
+            transition: -webkit-transform 0.3s linear;
             transition: transform 0.3s linear;
 
             // This one does not rotate

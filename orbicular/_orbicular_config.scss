@@ -12,3 +12,22 @@ $progressFillColor: #2b383f;    // The circle center
 // Don't add a percent sign as it is used as part of a larger calculation
 $progressBarWidth: 8; // % (for the OCD amoung us)
 
+
+@mixin co-border-radius($radius) {
+    border-radius:$radius;
+    -webkit-border-radius:$radius;
+    -moz-border-radius:$radius;
+}
+
+@mixin co-transform($transform) {
+    -webkit-transform: $transform;
+    -moz-transform: $transform;
+    -ms-transform: $transform;
+    transform: $transform;
+}
+
+@mixin co-box-sizing($type) {
+    -webkit-box-sizing: $type;
+    -moz-box-sizing: $type;
+    box-sizing: $type;
+}

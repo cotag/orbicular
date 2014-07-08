@@ -1,0 +1,140 @@
+
+// Don't rely on Compass
+@mixin co-border-radius($radius) {
+    border-radius:$radius;
+    -webkit-border-radius:$radius;
+    -moz-border-radius:$radius;
+}
+
+@mixin co-transform($transform) {
+    -webkit-transform: $transform;
+    -moz-transform: $transform;
+    -ms-transform: $transform;
+    transform: $transform;
+}
+
+@mixin co-box-sizing($type) {
+    -webkit-box-sizing: $type;
+    -moz-box-sizing: $type;
+    box-sizing: $type;
+}
+
+// Use this mixin to add orbicular support to your css
+@mixin orbicular(
+    $barColor:  #50a6d3,    // The completed progress
+    $barBg:     #EEE,       // The remaining progress
+    $barWidth:  8,          // The bar width is defined as a percentage of the width of the circle
+    $contentBg: #2b383f,    // The circle center
+    $fontSize:  8,          // Content font-size as a percentage of the circle size
+    $transTime: 0.3s,
+    $transFunc: linear,
+    $shadow: ''
+    ) {
+
+    // This is the width of the progress bar itself.
+    // NOT the size of the circle which is definded by it's parent element.
+    //
+    // The bar width is defined as a percentage of the width of the circle
+    // (% of parent element width).
+    $calculatedWidth: $barWidth / 100;
+    $contentWidth: (1 - (2 * $calculatedWidth));
+
+    $actualBarWidth: $calculatedWidth + em;
+    $actualFontSize: $fontSize / 100 + em;
+
+    // this is the core progress class
+    div.co-circle-progress {
+        position: relative;
+        width: 100%;
+        height: 1em;
+        @include co-box-sizing(border-box);
+
+        *, *:after, *:before {
+            @include co-box-sizing(border-box);
+        }
+
+        // Provides the bars background
+        background-color: $barBg;
+        @include co-border-radius(0.5em);
+
+        // Common traits of all the circles
+        &> div.co-circle, div.co-fill {
+            position:absolute;
+            top: 0;
+            left: 0;
+            width: 1em;
+            height: 1em;
+            background: transparent;
+
+            @include co-border-radius(0.5em);
+
+            -webkit-transition: -webkit-transform $transTime $transFunc;
+            -moz-transition: -moz-transform $transTime $transFunc;
+            -ms-transition: -ms-transform $transTime $transFunc;
+            -o-transition: -o-transform $transTime $transFunc;
+            transition: -webkit-transform $transTime $transFunc;
+            transition: transform $transTime $transFunc;
+        }
+
+        &> div.co-circle {
+            // Hides half of the circle
+            clip: rect(0px, 1em, 1em, 0.5em);
+
+            &> div.co-fill {
+                clip: rect(0em, 0.5em, 1em, 0em);
+                border-color: $barColor;
+                border: $actualBarWidth solid;
+            }
+        }
+
+        // Optional Shadow (developer to style)
+        &> div.co-shadow {
+            @if $shadow == '' {
+                display: none;
+            } @else {
+                box-shadow: $shadow inset;
+            }
+
+            position:absolute;
+            width: 1em;
+            height: 1em;
+            background: transparent;
+
+            @include co-border-radius(0.5em);
+        }
+
+        // Centering of the transcluded content by default
+        &> div.co-content {
+            position:absolute;
+
+            height: $contentWidth + em;
+            width: $contentWidth + em;
+            margin-left: $actualBarWidth;
+            margin-top: $actualBarWidth;
+
+            background-color: $contentBg;
+            @include co-border-radius($contentWidth / 2 + em);
+            overflow: hidden;
+
+            @if $shadow != '' {
+                box-shadow: $shadow;
+            }
+
+            &> div {
+                display: table-row;
+                width: $contentWidth + em;
+                height: $contentWidth + em;
+
+                &> div {
+                    display: table-cell;
+                    vertical-align: middle;
+                    text-align: center;
+                    width: $contentWidth + em;
+
+                    font-size: $actualFontSize;
+                    line-height: $actualFontSize;
+                }
+            }
+        }
+    }
+} // END mixin

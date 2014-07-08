@@ -30,8 +30,16 @@
                 resizeEvents = 'orientationchange resize',
 
                 // Set the rotation of the square
-                updateProgress = function (progressEl, pos) {
-                    progressEl.css({
+                updateProgress = function (group1, group2, pos) {
+                    group1.css({
+                        '-webkit-transform': 'rotate(' + pos + 'deg)',
+                        '-moz-transform': 'rotate(' + pos + 'deg)',
+                        '-ms-transform': 'rotate(' + pos + 'deg)',
+                        '-o-transform': 'rotate(' + pos + 'deg)',
+                        'transform': 'rotate(' + pos + 'deg)'
+                    });
+                    pos = pos * 2;
+                    group2.css({
                         '-webkit-transform': 'rotate(' + pos + 'deg)',
                         '-moz-transform': 'rotate(' + pos + 'deg)',
                         '-ms-transform': 'rotate(' + pos + 'deg)',
@@ -42,12 +50,16 @@
 
             return {
                 template: '<div class="co-circle-progress">' +
-                            '<div class="co-circle bg"></div>' +
-                            '<div class="co-progress" ng-class="{gt50: nextHalf}">' +
-                                '<div class="co-circle"></div>' +
-                                '<div class="co-circle filled"></div>' +
+                            '<div class="co-circle co-full">' +
+                                '<div class="co-fill"></div>' +
                             '</div>' +
-                            '<div class="circle-content">' +
+                            '<div class="co-circle co-half">' +
+                                '<div class="co-fill"></div>' +
+                                '<div class="co-fill co-fix"></div>' +
+                            '</div>' +
+                            // optional shadow
+                            '<div class="co-shadow"></div>' +
+                            '<div class="co-content">' +
                                 '<div><div ng-transclude></div></div>' +
                             '</div>' +
                         '</div>',
@@ -58,73 +70,56 @@
                     current: '=progression',
                     total: '='
                 },
-                link: function (scope, element) {
-                    var applyProgress = true,    // used to coordinate the transition animation
-                        progressTemp,            // holds the progress during the coordinated transition
-
-                        //progressEl = element.find('div.co-progress > div:first-child'),
-                        progressEl = angular.element(
-                            angular.element(
-                                element.children()[1]
-                            ).children()[0]
-                        ),
+                link: function (scope, element, attrs) {
+                    var group1 = [],
+                        group2 = [],
 
                         // Width must be an even number of pixels for the effect to work.
                         setWidth = function () {
                             var width = element.prop('offsetWidth');
                             element.css('font-size', width - (width % 2) + 'px');
-                        },
-
-                        // Cache the forward transition (clockwise)
-                        moveForward = function () {
-                            progressEl.off(transitionEvents);
-                            scope.nextHalf = true;
-                            scope.$apply();
-                            updateProgress(progressEl, progressTemp);
-                        },
-
-                        // Cache the backwards transition (anti-clockwise)
-                        moveBackwards = function () {
-                            progressEl.off(transitionEvents);
-                            scope.nextHalf = false;
-                            scope.$apply();
-                            updateProgress(progressEl, progressTemp);
                         };
+
+
+                    //progressEl = element.find('div.co-progress > div:first-child')
+                    group1.push(element.children()[0]);
+                    group1.push(
+                        angular.element(
+                            element.children()[0]
+                        ).children()[0]
+                    );
+                    group1.push(
+                        angular.element(
+                            element.children()[1]
+                        ).children()[0]
+                    );
+                    group1 = angular.element(group1);
+
+                    group2.push(
+                        angular.element(
+                            element.children()[1]
+                        ).children()[1]
+                    );
+                    group2 = angular.element(group2);
 
 
                     // we have to use em's for the clip function to work like a percentage
                     // so we have to manually perform the resize based on width
                     setWidth();
                     scope.$on('orb width', setWidth); // for programmatic resizing
-                    scope.$on('$destroy', function () {
-                        $window.off(resizeEvents, setWidth);
-                    });
-                    $window.on(resizeEvents, setWidth);
 
-                    // Indicates which side the filled half circle should be located
-                    scope.nextHalf = false;
+                    // Optionally resize
+                    if (attrs.resize) {
+                        scope.$on('$destroy', function () {
+                            $window.off(resizeEvents, setWidth);
+                        });
+                        $window.on(resizeEvents, setWidth);
+                    }
 
                     // we watch for changes to the progress indicator of the parent scope
                     scope.$watch('current', function (newValue) {
-                        newValue = newValue / scope.total * 360;
-
-                        if (newValue >= 180 && !scope.nextHalf) {
-                            progressTemp = newValue;
-                            if (applyProgress) {
-                                applyProgress = false;
-                                updateProgress(progressEl, 180);
-                                progressEl.on(transitionEvents, moveForward);
-                            }
-                        } else if (newValue < 180 && scope.nextHalf) {
-                            progressTemp = newValue;
-                            if (!applyProgress) {
-                                applyProgress = true;
-                                updateProgress(progressEl, 180.000001);
-                                progressEl.on(transitionEvents, moveBackwards);
-                            }
-                        } else {
-                            updateProgress(progressEl, newValue);
-                        }
+                        newValue = newValue / scope.total * 360 / 2;
+                        updateProgress(group1, group2, newValue);
                     });
                 }
             };

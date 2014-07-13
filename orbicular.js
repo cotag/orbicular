@@ -75,9 +75,11 @@
                 link: function (scope, element, attrs) {
                     var circles = [],
                         fix,
+
+                        // Width must be an even number of pixels for the effect to work.
                         setWidth = function () {
                             var width = element.prop('offsetWidth');
-                            element.css('font-size', width + 'px');
+                            element.css('font-size', width - (width % 2) + 'px');
                         };
 
 

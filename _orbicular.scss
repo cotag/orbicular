@@ -26,6 +26,7 @@
     $barWidth:  8,          // The bar width is defined as a percentage of the width of the circle
     $contentBg: #2b383f,    // The circle center
     $fontSize:  8,          // Content font-size as a percentage of the circle size
+    $fontColor: #FFF,
     $transTime: 0.3s,
     $transFunc: linear,
     $shadow: ''
@@ -105,6 +106,7 @@
         // Centering of the transcluded content by default
         &> div.co-content {
             position:absolute;
+            overflow: hidden;
 
             height: $contentWidth + em;
             width: $contentWidth + em;
@@ -113,25 +115,32 @@
 
             background-color: $contentBg;
             @include co-border-radius($contentWidth / 2 + em);
-            overflow: hidden;
 
             @if $shadow != '' {
                 box-shadow: $shadow;
             }
 
             &> div {
-                display: table-row;
-                width: $contentWidth + em;
-                height: $contentWidth + em;
+                display: table;
+                width: 100%;
+                height: 100%;
 
                 &> div {
-                    display: table-cell;
-                    vertical-align: middle;
-                    text-align: center;
-                    width: $contentWidth + em;
+                    display: table-row;
+                    width: 100%;
+                    height: 100%;
+                    
+                    &> div {
+                        display: table-cell;
 
-                    font-size: $actualFontSize;
-                    line-height: $actualFontSize;
+                        font-size: $actualFontSize;
+                        color: $fontColor;
+                        line-height: 1em;
+                        text-align: center;
+                        vertical-align: middle;
+                        
+                        width: 100%;
+                    }
                 }
             }
         }

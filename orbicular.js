@@ -2,14 +2,15 @@
 *    CoTag Orbicular
 *    A more or less pure CSS, circular, progress bar
 *    
-*   Copyright (c) 2013 CoTag Media.
+*   Copyright (c) 2014 CoTag Media.
 *    
 *    @author     Stephen von Takach <steve@cotag.me>
-*    @copyright  2013 cotag.me
+*    @copyright  2014 cotag.me
 * 
 *     
 *     References:
 *        * http://fromanegg.com/post/41302147556/100-pure-css-radial-progress-bar
+*        * https://medium.com/@andsens/radial-progress-indicator-using-css-a917b80c43f9
 *
 **/
 
@@ -26,12 +27,11 @@
             var $window = angular.element(windowRef),
 
                 // Cache event strings
-                transitionEvents = 'webkitTransitionEnd mozTransitionEnd msTransitionEnd oTransitionEnd transitionend',
                 resizeEvents = 'orientationchange resize',
 
                 // Set the rotation of the square
-                updateProgress = function (group1, group2, pos) {
-                    group1.css({
+                updateProgress = function (circles, fix, pos) {
+                    circles.css({
                         '-webkit-transform': 'rotate(' + pos + 'deg)',
                         '-moz-transform': 'rotate(' + pos + 'deg)',
                         '-ms-transform': 'rotate(' + pos + 'deg)',
@@ -39,7 +39,7 @@
                         'transform': 'rotate(' + pos + 'deg)'
                     });
                     pos = pos * 2;
-                    group2.css({
+                    fix.css({
                         '-webkit-transform': 'rotate(' + pos + 'deg)',
                         '-moz-transform': 'rotate(' + pos + 'deg)',
                         '-ms-transform': 'rotate(' + pos + 'deg)',
@@ -60,7 +60,9 @@
                             // optional shadow
                             '<div class="co-shadow"></div>' +
                             '<div class="co-content">' +
-                                '<div><div ng-transclude></div></div>' +
+                                '<div><div>' +
+                                    '<div ng-transclude></div>' +
+                                '</div></div>' +
                             '</div>' +
                         '</div>',
                 transclude: true,
@@ -71,36 +73,34 @@
                     total: '='
                 },
                 link: function (scope, element, attrs) {
-                    var group1 = [],
-                        group2 = [],
-
-                        // Width must be an even number of pixels for the effect to work.
+                    var circles = [],
+                        fix,
                         setWidth = function () {
                             var width = element.prop('offsetWidth');
-                            element.css('font-size', width - (width % 2) + 'px');
+                            element.css('font-size', width + 'px');
                         };
 
 
-                    //progressEl = element.find('div.co-progress > div:first-child')
-                    group1.push(element.children()[0]);
-                    group1.push(
+                    // circles = element.find('div.co-full, div.co-fill')
+                    circles.push(element.children()[0]);
+                    circles.push(
                         angular.element(
                             element.children()[0]
                         ).children()[0]
                     );
-                    group1.push(
+                    circles.push(
                         angular.element(
                             element.children()[1]
                         ).children()[0]
                     );
-                    group1 = angular.element(group1);
+                    circles = angular.element(circles);
 
-                    group2.push(
+                    // fix = element.find('div.co-fix')
+                    fix = angular.element(
                         angular.element(
                             element.children()[1]
                         ).children()[1]
                     );
-                    group2 = angular.element(group2);
 
 
                     // we have to use em's for the clip function to work like a percentage
@@ -109,7 +109,7 @@
                     scope.$on('orb width', setWidth); // for programmatic resizing
 
                     // Optionally resize
-                    if (attrs.resize) {
+                    if (attrs.hasOwnProperty('resize')) {
                         scope.$on('$destroy', function () {
                             $window.off(resizeEvents, setWidth);
                         });
@@ -118,8 +118,8 @@
 
                     // we watch for changes to the progress indicator of the parent scope
                     scope.$watch('current', function (newValue) {
-                        newValue = newValue / scope.total * 360 / 2;
-                        updateProgress(group1, group2, newValue);
+                        newValue = newValue / scope.total * 180.0;
+                        updateProgress(circles, fix, newValue);
                     });
                 }
             };

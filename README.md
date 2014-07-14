@@ -27,10 +27,10 @@ Also have a look at this [fiddle](http://jsfiddle.net/jD74M/7/)
 ### Create your progress element
 
 ```html
-<orbicular progression="downloaded" total="size" >Text / HTML in the circle</orbicular>
+<orbicular progression="downloaded" total="size" resize>Text / HTML in the circle</orbicular>
 ```
 
-Where `$scope.downloaded` (download progress) and `$scope.size` (total size of download) are the variables used in the example to track the progress of a download.
+Where `$scope.downloaded` (download progress) and `$scope.size` (total size of download) are the variables used in the example to track the progress of a download. `resize` is optional and the circle will resize on window resize / rotate etc
 
 
 Configure your circle using the mixin options
@@ -68,7 +68,7 @@ This size is static and is set at the following times:
 * when the directive is linked
 * on the $broadcast of `'orb width'` to the elements scope
 
-if you set the optional resize attribute on the element then it'll also resize on
+if you set the optional `resize` attribute on the element then it'll also resize on
 
 * on mobile device rotation
 * when the browser window is resized

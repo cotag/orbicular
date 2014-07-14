@@ -1,13 +1,12 @@
 # CSS Circular Progress Bar
 
-[![Build Status](https://travis-ci.org/cotag/orbicular.svg?branch=master)](https://travis-ci.org/cotag/orbicular)
-
-
-Based on the technique used at http://fromanegg.com/post/41302147556/100-pure-css-radial-progress-bar
+Based on the techniques used at http://fromanegg.com/post/41302147556/100-pure-css-radial-progress-bar and https://medium.com/@andsens/radial-progress-indicator-using-css-a917b80c43f9
 
 For cool auto-scaling UI's that require circular progression
 
 ![image](https://cloud.githubusercontent.com/assets/368013/2675921/6a099290-c127-11e3-9643-29a8b7ec6a9d.png)
+
+Also have a look at this [fiddle](http://jsfiddle.net/jD74M/7/)
 
 
 ## Installation
@@ -80,7 +79,7 @@ Broadcasting or emitting should be used to programmatically resize circles
 ## Upgrading from version 2.x.x to 3.x.x
 
 * Change the SCSS to use the mixin
-* Optionally add `resize` attribute if it should resize automatically
+* Add a `resize` attribute if it should resize automatically
 
 ## Upgrading from version 1.x.x to 2.x.x
 

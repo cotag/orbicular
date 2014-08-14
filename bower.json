@@ -1,6 +1,5 @@
 {
   "name": "orbicular",
-  "version": "3.0.0",
   "main": ["orbicular.js"],
   "description": "A CSS based circular progress bar for AngularJS",
   "dependencies": {

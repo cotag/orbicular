@@ -70,7 +70,7 @@
                 restrict: 'EA',
                 scope: {
                     current: '=progression',
-                    total: '='
+                    total: '=total'
                 },
                 link: function (scope, element, attrs) {
                     var circles = [],
@@ -121,6 +121,12 @@
                     // we watch for changes to the progress indicator of the parent scope
                     scope.$watch('current', function (newValue) {
                         newValue = newValue / scope.total * 180.0;
+                        updateProgress(circles, fix, newValue);
+                    });
+                    
+                    // we watch for changes to the total indicator of the parent scope
+                    scope.$watch('total', function (newValue) {
+                        newValue = scope.current / newValue * 180.0;
                         updateProgress(circles, fix, newValue);
                     });
                 }

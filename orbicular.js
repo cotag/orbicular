@@ -80,6 +80,12 @@
                         setWidth = function () {
                             var width = element.prop('offsetWidth');
                             element.css('font-size', width - (width % 2) + 'px');
+                        },
+                        
+                        update = function () {
+                            updateProgress(circles, fix, 
+                                scope.current / scope.total * 180.0
+                            );
                         };
 
 
@@ -119,10 +125,8 @@
                     }
 
                     // we watch for changes to the progress indicator of the parent scope
-                    scope.$watch('current', function (newValue) {
-                        newValue = newValue / scope.total * 180.0;
-                        updateProgress(circles, fix, newValue);
-                    });
+                    scope.$watch('current', update);
+                    scope.$watch('total',   update);
                 }
             };
         }]);

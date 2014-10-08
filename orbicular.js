@@ -56,22 +56,26 @@
           };
 
         return {
-          template: '<div class="co-circle-progress">' +
-          '<div class="co-circle co-full">' +
-          '<div class="co-fill"></div>' +
-          '</div>' +
-          '<div class="co-circle co-half">' +
-          '<div class="co-fill"></div>' +
-          '<div class="co-fill co-fix"></div>' +
-          '</div>' +
-            // optional shadow
-          '<div class="co-shadow"></div>' +
-          '<div class="co-content">' +
-          '<div><div>' +
-          '<div ng-transclude></div>' +
-          '</div></div>' +
-          '</div>' +
-          '</div>',
+          template:
+            '<div class="co-circle-progress">' +
+              '<div class="co-circle co-full">' +
+                '<div class="co-fill"></div>' +
+              '</div>' +
+              '<div class="co-circle co-half">' +
+                '<div class="co-fill"></div>' +
+                '<div class="co-fill co-fix"></div>' +
+              '</div>' +
+
+              // optional shadow
+              '<div class="co-shadow"></div>' +
+              '<div class="co-content">' +
+                '<div>' +
+                  '<div>' +
+                    '<div ng-transclude></div>' +
+                  '</div>' +
+                '</div>' +
+              '</div>' +
+            '</div>',
           transclude: true,
           replace: true,
           restrict: 'EA',

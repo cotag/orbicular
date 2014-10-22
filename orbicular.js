@@ -33,11 +33,16 @@
         // Constants here reduce memory requirements of each circle
         var $window = angular.element(windowRef),
 
-        // Cache event strings
+          // Cache event strings
           resizeEvents = 'orientationchange resize',
 
-        // Set the rotation of the square
+          // Set the rotation of the square
           updateProgress = function (circles, fix, pos) {
+            // If total is 0 or negative it can lead to Infinity or NaN values
+            if (!isFinite(pos)) {
+              pos = 0;
+            }
+            
             circles.css({
               '-webkit-transform': 'rotate(' + pos + 'deg)',
               '-moz-transform': 'rotate(' + pos + 'deg)',
@@ -87,7 +92,7 @@
             var circles = [],
               fix,
 
-            // Width must be an even number of pixels for the effect to work.
+              // Width must be an even number of pixels for the effect to work.
               setWidth = function () {
                 var width = element.prop('offsetWidth');
                 element.css('font-size', width - (width % 2) + 'px');

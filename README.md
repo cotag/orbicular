@@ -51,7 +51,7 @@ Configure your circle using the mixin options
 
 // for further customizations to the circle content use:
 // You can add your own id's and classes to the element too
-div.co-circle-progress {
+orbicular, [orbicular] {
     div.co-content > div > div > div {
         font-weight: bold;
         // and any other divs' etc.

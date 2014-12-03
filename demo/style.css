@@ -2,7 +2,6 @@
 orbicular, [orbicular] {
   display: block;
   position: relative;
-  width: 100%;
   height: 1em;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -12,13 +11,13 @@ orbicular, [orbicular] {
   -webkit-border-radius: 0.5em;
   -moz-border-radius: 0.5em;
 }
-/* line 55, ../_orbicular.scss */
+/* line 54, ../_orbicular.scss */
 orbicular *, orbicular *:after, orbicular *:before, [orbicular] *, [orbicular] *:after, [orbicular] *:before {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
-/* line 64, ../_orbicular.scss */
+/* line 63, ../_orbicular.scss */
 orbicular > div.co-circle, orbicular div.co-fill, [orbicular] > div.co-circle, [orbicular] div.co-fill {
   position: absolute;
   top: 0;
@@ -39,16 +38,16 @@ orbicular > div.co-circle, orbicular div.co-fill, [orbicular] > div.co-circle, [
   backface-visibility: hidden;
   will-change: transform;
 }
-/* line 88, ../_orbicular.scss */
+/* line 87, ../_orbicular.scss */
 orbicular > div.co-circle, [orbicular] > div.co-circle {
   clip: rect(0px, 1em, 1em, 0.5em);
 }
-/* line 92, ../_orbicular.scss */
+/* line 91, ../_orbicular.scss */
 orbicular > div.co-circle > div.co-fill, [orbicular] > div.co-circle > div.co-fill {
   clip: rect(0em, 0.5em, 1em, 0em);
   background-color: #50a6d3;
 }
-/* line 99, ../_orbicular.scss */
+/* line 98, ../_orbicular.scss */
 orbicular > div.co-shadow, [orbicular] > div.co-shadow {
   box-shadow: 6px 6px 10px rgba(0, 0, 0, 0.2) inset;
   position: absolute;
@@ -59,7 +58,7 @@ orbicular > div.co-shadow, [orbicular] > div.co-shadow {
   -webkit-border-radius: 0.5em;
   -moz-border-radius: 0.5em;
 }
-/* line 115, ../_orbicular.scss */
+/* line 114, ../_orbicular.scss */
 orbicular > div.co-content, [orbicular] > div.co-content {
   position: absolute;
   overflow: hidden;
@@ -73,20 +72,20 @@ orbicular > div.co-content, [orbicular] > div.co-content {
   -moz-border-radius: 0.42em;
   box-shadow: 6px 6px 10px rgba(0, 0, 0, 0.2);
 }
-/* line 131, ../_orbicular.scss */
+/* line 130, ../_orbicular.scss */
 orbicular > div.co-content > div, [orbicular] > div.co-content > div {
   position: relative;
   display: table;
   width: 100%;
   height: 100%;
 }
-/* line 137, ../_orbicular.scss */
+/* line 136, ../_orbicular.scss */
 orbicular > div.co-content > div > div, [orbicular] > div.co-content > div > div {
   display: table-row;
   width: 100%;
   height: 100%;
 }
-/* line 142, ../_orbicular.scss */
+/* line 141, ../_orbicular.scss */
 orbicular > div.co-content > div > div > div, [orbicular] > div.co-content > div > div > div {
   display: table-cell;
   font-size: 0.08em;

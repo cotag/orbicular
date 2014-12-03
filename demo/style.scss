@@ -1,0 +1,11 @@
+
+
+@import "../_orbicular.scss";
+@include orbicular($shadow: 6px 6px 10px rgba(0,0,0,0.2));
+
+
+div.container {
+    width: 15em;
+    height: 15em;
+}
+

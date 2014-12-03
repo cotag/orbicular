@@ -62,7 +62,6 @@
 
         return {
           template:
-            '<div class="co-circle-progress">' +
               '<div class="co-circle co-full">' +
                 '<div class="co-fill"></div>' +
               '</div>' +
@@ -79,10 +78,8 @@
                     '<div ng-transclude></div>' +
                   '</div>' +
                 '</div>' +
-              '</div>' +
-            '</div>',
+              '</div>',
           transclude: true,
-          replace: true,
           restrict: 'EA',
           scope: {
             current: '=progression',

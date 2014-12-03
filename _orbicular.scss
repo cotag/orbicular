@@ -43,8 +43,10 @@
     $actualBarWidth: $calculatedWidth + em;
     $actualFontSize: $fontSize / 100 + em;
 
+
     // this is the core progress class
-    div.co-circle-progress {
+    orbicular, [orbicular] {
+        display: block;
         position: relative;
         width: 100%;
         height: 1em;
@@ -75,6 +77,12 @@
             -o-transition: -o-transform $transTime $transFunc;
             transition: -webkit-transform $transTime $transFunc;
             transition: transform $transTime $transFunc;
+
+            // This may promote the layer to a composited layer.
+            // Should reduce flickering..
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            will-change: transform;
         }
 
         &> div.co-circle {

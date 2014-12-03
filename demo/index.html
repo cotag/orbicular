@@ -1,0 +1,24 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Orbicular Demo</title>
+        <meta name="viewport" content="width=device-width">
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body ng-app="Orbicular">
+
+        <div class="container" ng-init="downloaded=23; total=100">
+            <orbicular progression="downloaded" total="total" resize>
+                HTML in the circle
+                <button ng-click="$parent.$parent.downloaded=80">
+                    More Progress
+                </button>
+            </orbicular>
+        </div>
+
+        <script src="../bower_components/angular/angular.js"></script>
+        <script src="../orbicular.js"></script>
+    </body>
+</html>

@@ -22,7 +22,17 @@ Also have a look at this [fiddle](http://jsfiddle.net/jD74M/7/)
    * `@include orbicular(options: opt-value, ..)`
 
 
-## Usage
+## The Demo
+
+To play with the demo included in the repo:
+
+1. clone the repo
+2. run `npm install`
+3. run `bower install`
+4. open `./demo/index.html` in your browser
+5. run `gulp build` to update the scss
+
+## Real World Usage
 
 ### Create your progress element
 

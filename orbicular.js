@@ -97,7 +97,7 @@
 
               update = function () {
                 updateProgress(circles, fix,
-                  scope.current / scope.total * 180.0
+                  Math.min(1, scope.current / scope.total) * 180.0
                 );
               };
 

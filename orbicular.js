@@ -53,12 +53,12 @@
              **/
             if ( direction !== undefined && direction == 'counterclockwise' )
               var modifiers = [-2,1,-1,1,2];
-            else
+            else // direction is clockwise by default
               var modifiers = [1,1,0,1,2];
 
             var modifiedPos, circle;
             for (var i=0;i<circles.length; i++) {
-              if (pos==0) continue;
+              if (modifiers[i]==0) continue;
               modifiedPos = pos * modifiers[i];
               circle = angular.element(circles[i]);
               circle.css({

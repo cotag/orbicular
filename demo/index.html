@@ -18,6 +18,18 @@
             </orbicular>
         </div>
 
+        <br />
+        <br />
+
+        <div class="container" ng-init="downloaded2=23; total2=100">
+            <orbicular progression="downloaded2" total="total2" resize counterclockwise>
+                HTML in the circle
+                <button ng-click="$parent.$parent.downloaded2=80">
+                    More Progress
+                </button>
+            </orbicular>
+        </div>
+
         <script src="../bower_components/angular/angular.js"></script>
         <script src="../orbicular.js"></script>
     </body>

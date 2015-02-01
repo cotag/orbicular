@@ -37,10 +37,10 @@ To play with the demo included in the repo:
 ### Create your progress element
 
 ```html
-<orbicular progression="downloaded" total="size" resize>Text / HTML in the circle</orbicular>
+<orbicular progression="downloaded" total="size" direction="clockwise" resize>Text / HTML in the circle</orbicular>
 ```
 
-Where `$scope.downloaded` (download progress) and `$scope.size` (total size of download) are the variables used in the example to track the progress of a download. `resize` is optional and the circle will resize on window resize / rotate etc
+Where `$scope.downloaded` (download progress) and `$scope.size` (total size of download) are the variables used in the example to track the progress of a download. `resize` is optional and the circle will resize on window resize / rotate etc. `direction` attribute is optional, and only if `counterclockwise` given as attribute value, it changes the direction of the rotation.
 
 
 Configure your circle using the mixin options

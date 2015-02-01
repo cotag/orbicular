@@ -37,27 +37,38 @@
           resizeEvents = 'orientationchange resize',
 
           // Set the rotation of the square
-          updateProgress = function (circles, fix, pos) {
+          updateProgress = function (circles, pos, direction) {
             // If total is 0 or negative it can lead to Infinity or NaN values
             if (!isFinite(pos)) {
               pos = 0;
             }
-            
-            circles.css({
-              '-webkit-transform': 'rotate(' + pos + 'deg)',
-              '-moz-transform': 'rotate(' + pos + 'deg)',
-              '-ms-transform': 'rotate(' + pos + 'deg)',
-              '-o-transform': 'rotate(' + pos + 'deg)',
-              'transform': 'rotate(' + pos + 'deg)'
-            });
-            pos = pos * 2;
-            fix.css({
-              '-webkit-transform': 'rotate(' + pos + 'deg)',
-              '-moz-transform': 'rotate(' + pos + 'deg)',
-              '-ms-transform': 'rotate(' + pos + 'deg)',
-              '-o-transform': 'rotate(' + pos + 'deg)',
-              'transform': 'rotate(' + pos + 'deg)'
-            });
+
+            /**
+             * circles are:
+             * 0: .co-full
+             * 1: .co-full > .co-fill
+             * 2: .co-half
+             * 3: .co-half > .co-fill
+             * 4: .co-half > .co-fix
+             **/
+            if ( direction !== undefined && direction == 'counterclockwise' )
+              var modifiers = [-2,1,-1,1,2];
+            else // direction is clockwise by default
+              var modifiers = [1,1,0,1,2];
+
+            var modifiedPos, circle;
+            for (var i=0;i<circles.length; i++) {
+              if (modifiers[i]==0) continue;
+              modifiedPos = pos * modifiers[i];
+              circle = angular.element(circles[i]);
+              circle.css({
+                '-webkit-transform': 'translate3d(0, 0, 0) rotate(' + modifiedPos + 'deg)',
+                '-moz-transform': 'translate3d(0, 0, 0) rotate(' + modifiedPos + 'deg)',
+                '-ms-transform': 'translate3d(0, 0, 0) rotate(' + modifiedPos + 'deg)',
+                '-o-transform': 'translate3d(0, 0, 0) rotate(' + modifiedPos + 'deg)',
+                'transform': 'translate3d(0, 0, 0) rotate(' + modifiedPos + 'deg)'
+              });
+            }
           };
 
         return {
@@ -87,8 +98,6 @@
           },
           link: function (scope, element, attrs) {
             var circles = [],
-              fix,
-
               // Width must be an even number of pixels for the effect to work.
               setWidth = function () {
                 var width = element.prop('offsetWidth');
@@ -96,8 +105,9 @@
               },
 
               update = function () {
-                updateProgress(circles, fix,
-                  Math.min(1, scope.current / scope.total) * 180.0
+                updateProgress(circles,
+                  Math.min(1, scope.current / scope.total) * 180.0, 
+                  attrs.direction
                 );
               };
 
@@ -109,20 +119,20 @@
                 element.children()[0]
               ).children()[0]
             );
+            circles.push(element.children()[1]);
             circles.push(
               angular.element(
                 element.children()[1]
               ).children()[0]
             );
-            circles = angular.element(circles);
-
             // fix = element.find('div.co-fix')
-            fix = angular.element(
+            circles.push(
               angular.element(
                 element.children()[1]
               ).children()[1]
             );
 
+            //circles = angular.element(circles);
 
             // we have to use em's for the clip function to work like a percentage
             // so we have to manually perform the resize based on width

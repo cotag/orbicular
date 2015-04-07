@@ -115,6 +115,9 @@
             position:absolute;
             overflow: hidden;
 
+            // this fixes the overflow:hidden in Chrome / webkit
+            -webkit-mask-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAA5JREFUeNpiYGBgAAgwAAAEAAGbA+oJAAAAAElFTkSuQmCC);
+
             height: $contentWidth + em;
             width: $contentWidth + em;
             margin-left: $actualBarWidth;

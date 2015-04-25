@@ -88,8 +88,21 @@
             // Hides half of the circle
             clip: rect(0px, 1em, 1em, 0.5em);
 
+            // This is the new CSS standard (replacing clip)
+            // As of April 2015 it had the following issues:
+            // * Only supported by webkit
+            //   * Safari works with animation issues
+            //   * Chrome only clips div.co-fill
+            //-webkit-clip-path: polygon(50% 0, 100% 0, 100% 100%, 50% 100%);
+            //clip-path: polygon(50% 0, 100% 0, 100% 100%, 50% 100%);
+
+
             &> div.co-fill {
                 clip: rect(0em, 0.5em, 1em, 0em);
+
+                //-moz-clip-path: polygon(0 0, 50% 0, 50% 100%, 0 100%);
+                //clip-path: polygon(0 0, 50% 0, 50% 100%, 0 100%);
+
                 background-color: $barColor;
             }
         }

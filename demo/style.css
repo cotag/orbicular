@@ -62,7 +62,7 @@ orbicular > div.co-shadow, [orbicular] > div.co-shadow {
 orbicular > div.co-content, [orbicular] > div.co-content {
   position: absolute;
   overflow: hidden;
-  -webkit-mask-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAA5JREFUeNpiYGBgAAgwAAAEAAGbA+oJAAAAAElFTkSuQmCC);
+  z-index: 1;
   height: 0.84em;
   width: 0.84em;
   margin-left: 0.08em;

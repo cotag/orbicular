@@ -88,20 +88,33 @@
             // Hides half of the circle
             clip: rect(0px, 1em, 1em, 0.5em);
 
-            // This is the new CSS standard (replacing clip)
-            // As of April 2015 it had the following issues:
-            // * Only supported via the webkit prefix
-            //   * Safari works with animation issues
-            //   * Chrome only clips div.co-fill
-            //-webkit-clip-path: polygon(50% 0, 100% 0, 100% 100%, 50% 100%);
-            //clip-path: polygon(50% 0, 100% 0, 100% 100%, 50% 100%);
+            /*
+                clip-path is the CSS standard replacing clip
+                alternatively mask can also be used.
+                As of April 2015 clip-path had the following issues:
+                * Only supported via the webkit prefix
+                    * Safari works with animation issues
+                    * Chrome only clips div.co-fill
+            -webkit-clip-path: polygon(50% 0, 100% 0, 100% 100%, 50% 100%);
+            clip-path: polygon(50% 0, 100% 0, 100% 100%, 50% 100%);
 
+                * Only supported via the webkit prefix
+                    * Mask works fine in Chrome and Safari (much better than clip-path)
+                * Requires more HTTP requests or larger CSS for inline files
+            -webkit-mask: url(mask-left.svg) top left / cover;
+            mask: url(mask-left.svg) top left / cover;
+            */
 
             &> div.co-fill {
                 clip: rect(0em, 0.5em, 1em, 0em);
 
-                //-webkit-clip-path: polygon(0 0, 50% 0, 50% 100%, 0 100%);
-                //clip-path: polygon(0 0, 50% 0, 50% 100%, 0 100%);
+                /* Alternatives to clip
+                -webkit-clip-path: polygon(0 0, 50% 0, 50% 100%, 0 100%);
+                clip-path: polygon(0 0, 50% 0, 50% 100%, 0 100%);
+                // or
+                -webkit-mask: url(mask-right.svg) top left / cover;
+                mask: url(mask-right.svg) top left / cover;
+                */
 
                 background-color: $barColor;
             }

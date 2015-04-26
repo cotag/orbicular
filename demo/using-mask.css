@@ -1,0 +1,116 @@
+/* line 48, ../_orbicular.scss */
+orbicular, [orbicular] {
+  display: block;
+  position: relative;
+  height: 1em;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  background-color: #EEE;
+  border-radius: 0.5em;
+  -webkit-border-radius: 0.5em;
+  -moz-border-radius: 0.5em;
+}
+/* line 54, ../_orbicular.scss */
+orbicular *, orbicular *:after, orbicular *:before, [orbicular] *, [orbicular] *:after, [orbicular] *:before {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+/* line 63, ../_orbicular.scss */
+orbicular > div.co-circle, orbicular div.co-fill, [orbicular] > div.co-circle, [orbicular] div.co-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1em;
+  height: 1em;
+  background: transparent;
+  border-radius: 0.5em;
+  -webkit-border-radius: 0.5em;
+  -moz-border-radius: 0.5em;
+  -webkit-transition: -webkit-transform 0.3s linear;
+  -moz-transition: -moz-transform 0.3s linear;
+  -ms-transition: -ms-transform 0.3s linear;
+  -o-transition: -o-transform 0.3s linear;
+  transition: -webkit-transform 0.3s linear;
+  transition: transform 0.3s linear;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  will-change: transform;
+}
+/* line 87, ../_orbicular.scss */
+orbicular > div.co-circle, [orbicular] > div.co-circle {
+  -webkit-mask: url(../mask-left.svg) top left / cover;
+  mask: url(../mask-left.svg) top left / cover;
+}
+/* line 91, ../_orbicular.scss */
+orbicular > div.co-circle > div.co-fill, [orbicular] > div.co-circle > div.co-fill {
+  -webkit-mask: url(../mask-right.svg) top left / cover;
+  mask: url(../mask-right.svg) top left / cover;
+
+  background-color: #50a6d3;
+}
+/* line 98, ../_orbicular.scss */
+orbicular > div.co-shadow, [orbicular] > div.co-shadow {
+  box-shadow: 6px 6px 10px rgba(0, 0, 0, 0.2) inset;
+  position: absolute;
+  width: 1em;
+  height: 1em;
+  background: transparent;
+  border-radius: 0.5em;
+  -webkit-border-radius: 0.5em;
+  -moz-border-radius: 0.5em;
+}
+/* line 114, ../_orbicular.scss */
+orbicular > div.co-content, [orbicular] > div.co-content {
+  position: absolute;
+  overflow: hidden;
+  z-index: 1;
+  height: 0.84em;
+  width: 0.84em;
+  margin-left: 0.08em;
+  margin-top: 0.08em;
+  background-color: #2b383f;
+  border-radius: 0.42em;
+  -webkit-border-radius: 0.42em;
+  -moz-border-radius: 0.42em;
+  box-shadow: 6px 6px 10px rgba(0, 0, 0, 0.2);
+}
+/* line 133, ../_orbicular.scss */
+orbicular > div.co-content > div, [orbicular] > div.co-content > div {
+  display: table;
+  width: 100%;
+  height: 100%;
+}
+/* line 138, ../_orbicular.scss */
+orbicular > div.co-content > div > div, [orbicular] > div.co-content > div > div {
+  display: table-row;
+  width: 100%;
+  height: 100%;
+}
+/* line 143, ../_orbicular.scss */
+orbicular > div.co-content > div > div > div, [orbicular] > div.co-content > div > div > div {
+  position: relative;
+  display: table-cell;
+  font-size: 0.08em;
+  color: #FFF;
+  line-height: 1em;
+  text-align: center;
+  vertical-align: middle;
+  width: 100%;
+}
+
+/* line 7, style.scss */
+div.container {
+  width: 15em;
+  height: 15em;
+}
+
+/* line 13, style.scss */
+img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
